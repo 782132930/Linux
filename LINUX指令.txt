@@ -1,0 +1,71 @@
+cat（查看文件内容）
+touch（创建二进制文件）
+mkdir（创建空文件夹）
+cp（复制文件）
+clear 清屏幕
+ls 查看目录下文件夹
+pwd 查看当前目录路径
+pwd（显示当前目录路径）
+mv（更改文件名，移动文件）
+mv 1 2 3 ... -t a （移动文件1，2，3到文件夹a）
+whereis（查看某个文件在哪）
+egrep Linux * （查找当前目录下包含字符串“Linux”的文件）
+python3.6 -m venv my_env（-m模块启动venv创建一个虚拟环境my_env）
+source my_env/bin/activate（启动python3虚拟环境）
+deactivate（退出pyhton3虚拟环境）
+chomd -R 777（赋予当前文件夹以及子文件所有权限）
+ps -ef | egrep java（示查看所有进程里 CMD 是 java 的进程信息）
+kill -9 [PID] （关闭某个进程）
+netstat -tln （查看所有端口的使用情况）
+netstat -tln | grep 80（ 只查看80端口的使用情况）
+su（进入root模式）
+ps -aux （显示所有用户进程）
+
+python虚拟环境
+激活虚拟环境 source /home/user/my_env/bin/activate
+退出虚拟环境 deactivate
+
+screen的使用：
+  新建窗口
+1）可直接通过命令screen新建一个窗口，并进入窗口。但通过这种方式新建的窗口没有名字，只有系统分配给它的一个id。当需要恢复窗口时，只能通过id号来恢复。
+2）通过命令screen -S name，这样就可以新建一个名字为name的窗口，同样系统也会分配给它一个id，当恢复该窗口时既可以通过id号也可以通过窗口名。
+  分离会话
+退出当前新建的窗口，通过快键键Ctrl+a+d实现分离，此时窗口会跳出[detached]的提示，并回到主窗口。
+  恢复会话窗口
+首先查看当前有哪些screen窗口，通过命令：
+screen -ls 将列出窗口列表
+screen -r test2通过名字恢复
+screen -r 27582通过id号恢复
+  杀死会话窗口
+通过命令kill -9 threadnum
+注意此处只能通过id号来杀死窗口。
+C+a+k 这个快捷键杀死当前的窗口，同时也将杀死这个窗口中正在运行的进程
+  清除死去窗口
+通过命令screen -wipe
+这个命令将自动清除所有处于dead状态的窗口
+screen 指令
+screen -ls -> 列出当前所有的session
+screen -S yourname -> 新建一个叫yourname的session
+screen -m 　即使目前已在作业中的screen作业，仍强制建立新的screen作业。
+screen -d yourname -> 远程detach某个session
+screen -wipe 　检查目前所有的screen作业，并删除已经无法使用的screen作业。
+C-a d -> detach，暂时离开当前session，将目前的 screen session (可能含有多个 windows) 丢到后台执行。
+
+docker 命令
+docker ps // 查看所有正在运行容器 
+docker stop containerId // containerId 是容器的ID 
+docker rm --force coolq //强制删除容器coolq
+docker ps -a // 查看所有容器 $ docker ps -a -q // 查看所有容器ID 
+docker stop $(docker ps -a -q) //  stop停止所有容器 
+docker rm $(docker ps -a -q) //   remove删除所有容器
+酷Q-docker
+docker run --name=coolq --rm -p 9000:9000 \
+  -p 5700:5700 -v `pwd`:/home/user/coolq \
+  -e VNC_PASSWD=12345678 \
+  -e COOLQ_ACCOUNT=3271670852 \
+  coolq/wine-coolq
+//--rm改为-d可以转为后台运行
+#其他命令，查看日志、启停
+docker logs coolq
+docker stop coolq
+docker start coolq
